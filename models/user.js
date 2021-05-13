@@ -63,9 +63,10 @@ module.exports = (sequelize, DataTypes) => {
     return isCorrectPassword
   };
 
+  // return an object from the database of the user without the encrypted password
   user.prototype.toJSON = function() {
     let userData = this.get()
-    delete userData.password;
+    delete userData.password; // it doesn't delete password from database, only removes it. 
 
     return userData;
   };
