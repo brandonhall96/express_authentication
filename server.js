@@ -4,6 +4,8 @@ const layouts = require('express-ejs-layouts');
 const app = express();
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('./config/ppConfig');
+
 
 const SECRET_SESSION = process.env.SECRET_SESSION //we run a secret session kind of as a door we know whos coming in or made a request
 
@@ -27,6 +29,9 @@ app.use((req, res, next) => { //req is a request, res is a render
   res.locals.currentUser = req.user; // put current user in as well so we always know who the user is
   next(); // after this go to the next function
 });
+app.use(passport.initialize());      // Initialize passport
+app.use(passport.session());         // Add a session
+
 
 
 app.get('/', (req, res) => {

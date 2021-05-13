@@ -1,4 +1,4 @@
-const passport = require('passport');
+const passport = require('passport'); 
 const LocalStrategy = require('passport-local').Strategy;
 
 const db = require('../models'); // just connecting our db
@@ -50,4 +50,5 @@ passport.use(STRATEGY); //middleware
 module.exports = passport;
 
 
-
+//this is all to go into our database and check and do these
+//middleware is just functions manipulating data before redirecting to new page
