@@ -1,4 +1,7 @@
 'use strict';
+const bcrypt = require('bcrypt');
+
+
 const {
   Model
 } = require('sequelize');
@@ -18,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         len: {
-          args: [1,99],
-          msg: 'Name must be bewteen 1 and 99 characters'
+          args: [2,99],
+          msg: 'Name must be bewteen 2 and 99 characters'
         }
       }
     },
@@ -45,6 +48,36 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'user',
   });
+
+  //taking user password and hashing it
+  user.addHook('beforeCreate', (pendingUser) => { // pendingUser is user object that gets passed to db      
+   // Bcrypt is going to hash the password
+    let hash = bcrypt.hashSync(pendingUser.password, 12); // hash 12 times
+    pendingUser.password = hash; // this will go to the DB
+  });
+
+  // Check the password on Sign-In and compare it to the hashed password in the DB
+  user.prototype.validPassword = function(typedPassword) {
+    let isCorrectPassword = bcrypt.compareSync(typedPassword, this.password); // check to see if password is correct.
+
+    return isCorrectPassword
+  };
+
+  user.prototype.toJSON = function() {
+    let userData = this.get()
+    delete userData.password;
+
+    return userData;
+  };
+
+ 
+
+
+
+
+
+
+
   
-  return user;
+  return user; //before return user we put our functions to run on it
 };
