@@ -6,7 +6,7 @@
 
 function isLoggedIn(req, res, next) {
     
-    if (!req.user) {
+    if (!req.user) { //
         req.flash('error', 'You must be logged in to access page')
         res.redirect('/auth/login')
     }
