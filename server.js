@@ -13,6 +13,8 @@ const SECRET_SESSION = process.env.SECRET_SESSION //we run a secret session kind
 
 app.set('view engine', 'ejs');
 
+//--------------USE--------------------USE-------------------
+
 app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
@@ -33,15 +35,23 @@ app.use((req, res, next) => { //req is a request, res is a render
 app.use(passport.initialize());      // Initialize passport
 app.use(passport.session());         // Add a session
 
-
+//------------GET------------------GET------------------
 
 app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/profile', (req, res) => {
-  res.render('profile');
+// app.get('/profile', (req, res) => {
+//   res.render('profile');
+// });
+
+// Add this below /auth controllers
+app.get('/profile', isLoggedIn, (req, res) => {
+  const { id, name, email } = req.user.get(); 
+  res.render('profile', { id, name, email });
 });
+
+
 
 app.use('/auth', require('./controllers/auth'));
 

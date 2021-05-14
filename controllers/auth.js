@@ -22,6 +22,7 @@ router.get('/logout', (req, res) => {
 
 
 
+
 // ----------------- posts -----------------------
 
 
@@ -33,7 +34,7 @@ router.post('/login', passport.authenticate('local', {
   failureFlash: 'Either email or password is incorrect' 
 }));
 
-//-------------------------------------------
+
 
 router.post('/signup', async (req, res) => {
   // we now have access to the user info (req.body);
