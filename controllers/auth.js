@@ -4,6 +4,7 @@ const passport = require('../config/ppConfig');
 const db = require('../models');
 
 
+
 // --------------------- GET --------------------------
 
 router.get('/signup', (req, res) => {
@@ -28,9 +29,9 @@ router.get('/logout', (req, res) => {
 
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
+  successRedirect: '/profile',
   failureRedirect: '/auth/login',
-  successFlash: 'Welcome back ...',
+  successFlash: 'Hes back! The Light Giver!',
   failureFlash: 'Either email or password is incorrect' 
 }));
 
