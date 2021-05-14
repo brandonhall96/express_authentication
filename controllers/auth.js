@@ -4,6 +4,8 @@ const passport = require('../config/ppConfig');
 const db = require('../models');
 
 
+// --------------------- GET --------------------------
+
 router.get('/signup', (req, res) => {
   res.render('auth/signup');
 });
@@ -13,7 +15,7 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  req.logOut();
+  req.logOut(); // logs out and clears all cookies etc
   req.flash('Success', 'Logging out... Check ya later');
   res.redirect('/');
 });
@@ -30,6 +32,8 @@ router.post('/login', passport.authenticate('local', {
   successFlash: 'Welcome back ...',
   failureFlash: 'Either email or password is incorrect' 
 }));
+
+//-------------------------------------------
 
 router.post('/signup', async (req, res) => {
   // we now have access to the user info (req.body);
