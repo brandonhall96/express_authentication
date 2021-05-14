@@ -55,7 +55,7 @@ router.post('/signup', async (req, res) => {
         passport.authenticate('local', successObject)(req, res); //without req, res we wont know what were authenticating
     } else {
       // Send back email already exists
-      req.flash('error', 'Email already exists');
+      req.flash('error', 'Email already exists'); // this will display in alerts.ejs which is tied to the layout
       res.redirect('/auth/signup'); // redirect the user back to sign up page to try again
     }
   } catch (error) {

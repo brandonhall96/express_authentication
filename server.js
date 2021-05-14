@@ -26,7 +26,7 @@ app.use(flash());            // flash middleware
 
 app.use((req, res, next) => { //req is a request, res is a render
   console.log(res.locals);       //for every response there is a local key that we can store objects in
-  res.locals.alerts = req.flash(); // attach an alert to the key and it will flash a message
+  res.locals.alerts = req.flash(); // stores alerts in the local so we can use it later
   res.locals.currentUser = req.user; // put current user in as well so we always know who the user is
   next(); // after this go to the next function
 });
